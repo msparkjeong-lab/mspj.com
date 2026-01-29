@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJ박정어학원 - Listening, Speaking, Writing Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body { font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; }
+        .lux-shadow { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05); }
+        .gradient-blue { background: linear-gradient(135deg, #0689db 0%, #0466a3 100%); }
+        /* 카카오맵 인포윈도우 스타일 커스텀 */
+        .kakao-label {
+            padding: 8px 12px;
+            background: #0689db;
+            color: white;
+            font-weight: 800;
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(6, 137, 219, 0.3);
+            white-space: nowrap;
+            border: 2px solid white;
+        }
+        .kakao-label::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #0689db;
+        }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              mspjBlue: '#0689db',
+              mspjDark: '#1a1a1a',
+              mspjGray: '#f8f9fa'
+            }
+          }
+        }
+      }
+    </script>
+    <!-- 카카오맵 API (appkey는 실제 사용 시 발급받은 키로 교체해야 정식 서비스 가능) -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=749622d0b5e7308736349c897f26d2e6&libraries=services"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "framer-motion": "https://esm.sh/framer-motion@^12.29.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-white text-mspjDark">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Copy of PJ박정어학원 Official Website",
+  "description": "Luxurious and professional English academy website specializing in Listening, Speaking, and Writing, featuring a robust CMS and Admin Dashboard.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
