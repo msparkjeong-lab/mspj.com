@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSiteData } from '../App';
 import { Search, Bell, Lightbulb, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Link import 추가
 
 const Board: React.FC = () => {
   const { data } = useSiteData();
@@ -56,7 +57,7 @@ const Board: React.FC = () => {
                   transition={{ delay: idx * 0.05 }}
                   className="group bg-white border border-gray-100 p-8 rounded-[2rem] hover:shadow-xl transition-all flex flex-col md:flex-row items-start md:items-center justify-between cursor-pointer"
                 >
-                  <div className="flex items-center space-x-6">
+                  <Link to={`/board/${post.id}`} className="flex items-center space-x-6 w-full md:w-auto"> {/* Link로 감싸기 */}
                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${
                       post.category === 'Announcement' ? 'bg-orange-50 text-orange-500' : 'bg-green-50 text-green-500'
                     }`}>
@@ -73,11 +74,11 @@ const Board: React.FC = () => {
                       </div>
                       <h3 className="text-xl font-bold text-mspjDark group-hover:text-mspjBlue transition-colors">{post.title}</h3>
                     </div>
-                  </div>
-                  <div className="mt-4 md:mt-0 flex items-center text-gray-400 group-hover:text-mspjBlue transition-colors font-bold text-sm">
+                  </Link>
+                  <Link to={`/board/${post.id}`} className="mt-4 md:mt-0 flex items-center text-gray-400 group-hover:text-mspjBlue transition-colors font-bold text-sm">
                     상세보기
                     <ChevronRight size={18} className="ml-1" />
-                  </div>
+                  </Link>
                 </motion.div>
               ))
             ) : (

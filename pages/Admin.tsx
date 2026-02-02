@@ -2,10 +2,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSiteData } from '../App';
-import { Save, RefreshCcw, Layout, FileText, Users, Globe, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
+import { Save, RefreshCcw, Layout, FileText, Users, Globe, Trash2, Plus, LogOut } from 'lucide-react'; // LogOut 아이콘 import
+import { useAuth } from '../store'; // useAuth 훅 import
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 import
 
 const Admin: React.FC = () => {
   const { data, updateSettings, addPost, deletePost, resetData } = useSiteData();
+  const { logout } = useAuth(); // logout 함수 가져오기
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   const [activeTab, setActiveTab] = useState<'General' | 'Posts' | 'Teachers' | 'SEO'>('General');
   const [settingsForm, setSettingsForm] = useState(data.settings);
   const [newPost, setNewPost] = useState({ title: '', content: '', category: 'Announcement' as any });
@@ -31,6 +36,11 @@ const Admin: React.FC = () => {
     });
     setNewPost({ title: '', content: '', category: 'Announcement' });
     alert('게시물이 추가되었습니다.');
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/admin/login'); // 로그아웃 후 로그인 페이지로 리디렉션
   };
 
   const menuItems = [
@@ -67,13 +77,22 @@ const Admin: React.FC = () => {
             </nav>
           </div>
 
-          <button 
-            onClick={resetData}
-            className="flex items-center space-x-2 text-xs text-gray-500 hover:text-red-400 transition-colors p-4 border border-gray-800 rounded-xl"
-          >
-            <RefreshCcw size={14} />
-            <span>초기화 (Reset All)</span>
-          </button>
+          <div className="space-y-4">
+            <button 
+              onClick={handleLogout}
+              className="w-full flex items-center space-x-2 text-xs text-gray-400 hover:text-white transition-colors p-4 border border-gray-800 rounded-xl"
+            >
+              <LogOut size={14} />
+              <span>로그아웃</span>
+            </button>
+            <button 
+              onClick={resetData}
+              className="w-full flex items-center space-x-2 text-xs text-gray-500 hover:text-red-400 transition-colors p-4 border border-gray-800 rounded-xl"
+            >
+              <RefreshCcw size={14} />
+              <span>초기화 (Reset All)</span>
+            </button>
+          </div>
         </aside>
 
         {/* Content */}

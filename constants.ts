@@ -64,3 +64,7 @@ export const INITIAL_SITE_DATA: SiteData = {
     }
   ]
 };
+
+// Admin authentication credentials (for demonstration purposes only)
+export const ADMIN_USERNAME = 'pjadmin';
+export const ADMIN_PASSWORD = 'pj1234!';

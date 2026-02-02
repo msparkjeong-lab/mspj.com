@@ -3,8 +3,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSiteData } from '../App';
 import { 
-  ArrowRight, CheckCircle2, Users, GraduationCap, 
-  ChevronRight, ChevronLeft, Phone, Award, Play, Pause 
+  ArrowRight, Users, GraduationCap, 
+  ChevronRight, ChevronLeft, Phone, Award, Play, Pause, CheckCircle2 // CheckCircle2만 남김
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

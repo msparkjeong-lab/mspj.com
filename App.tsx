@@ -1,9 +1,9 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
-import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Instagram, Youtube, MessageCircle, Phone, Mail, MapPin, ChevronRight, Settings } from 'lucide-react';
-import { useCMS } from './store';
+import { useCMS, AuthContext, useAuthProvider, useAuth } from './store'; // AuthContext, useAuthProvider, useAuth import
 import { SiteData } from './types';
 
 // Pages
@@ -11,8 +11,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Curriculum from './pages/Curriculum';
 import Board from './pages/Board';
+import PostDetail from './pages/PostDetail'; // PostDetail 페이지 import
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
+import AdminLogin from './pages/AdminLogin'; // AdminLogin 페이지 import
 
 // Context
 const CMSContext = createContext<ReturnType<typeof useCMS> | null>(null);
@@ -23,8 +25,18 @@ export const useSiteData = () => {
   return context;
 };
 
+// ProtectedRoute Component
+const ProtectedRoute: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { isLoggedIn } = useAuth();
+  if (!isLoggedIn) {
+    return <Navigate to="/admin/login" replace />;
+  }
+  return <>{children}</>;
+};
+
 const Header = () => {
   const { data } = useSiteData();
+  const { isLoggedIn } = useAuth(); // useAuth 훅 사용
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
 
@@ -59,7 +71,10 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <Link to="/admin" className="p-2 text-gray-400 hover:text-mspjBlue transition-colors">
+            <Link 
+              to={isLoggedIn ? "/admin" : "/admin/login"} // 로그인 상태에 따라 Admin 또는 AdminLogin으로 연결
+              className="p-2 text-gray-400 hover:text-mspjBlue transition-colors"
+            >
               <Settings size={20} />
             </Link>
           </nav>
@@ -92,7 +107,7 @@ const Header = () => {
                 </Link>
               ))}
               <Link
-                to="/admin"
+                to={isLoggedIn ? "/admin" : "/admin/login"} // 로그인 상태에 따라 Admin 또는 AdminLogin으로 연결
                 onClick={() => setIsOpen(false)}
                 className="flex items-center space-x-2 px-3 py-4 text-base font-semibold text-mspjBlue bg-blue-50 rounded-lg"
               >
@@ -188,21 +203,33 @@ const Layout = ({ children }: { children?: ReactNode }) => {
 
 const App: React.FC = () => {
   const cms = useCMS();
+  const auth = useAuthProvider(); // useAuthProvider 훅 사용
 
   return (
     <CMSContext.Provider value={cms}>
-      <HashRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/curriculum" element={<Curriculum />} />
-            <Route path="/board" element={<Board />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Admin />} />
-          </Routes>
-        </Layout>
-      </HashRouter>
+      <AuthContext.Provider value={auth}> {/* AuthContext Provider 추가 */}
+        <HashRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/curriculum" element={<Curriculum />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/board/:postId" element={<PostDetail />} /> {/* PostDetail 라우트 추가 */}
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/admin/login" element={<AdminLogin />} /> {/* AdminLogin 라우트 추가 */}
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute> {/* ProtectedRoute로 Admin 컴포넌트 보호 */}
+                    <Admin />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+          </Layout>
+        </HashRouter>
+      </AuthContext.Provider>
     </CMSContext.Provider>
   );
 };

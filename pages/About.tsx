@@ -34,11 +34,12 @@ const About: React.FC = () => {
       {/* History & Philosophy */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 gap-20 items-center"> {/* Removed lg:grid-cols-2 as there's only one column now */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: -30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="lg:col-span-full" // Ensure it takes full width on large screens
             >
               <h2 className="text-3xl font-black mb-8 text-mspjDark">대한민국 영어의 자부심,<br />PJ 박정어학원</h2>
               <div className="space-y-6 text-gray-600 leading-relaxed">
@@ -48,7 +49,7 @@ const About: React.FC = () => {
                 <p>
                   우리의 교수법은 'Communication-Based Learning'과 'Critical Analysis'의 결합입니다. 이를 통해 학생들은 단순히 문제를 푸는 기계를 넘어, 깊이 있는 대화를 나누고 정교한 글을 쓰는 지성인으로 성장합니다.
                 </p>
-                <div className="grid grid-cols-2 gap-6 pt-8">
+                <div className="grid grid-cols-2 gap-6 pt-8 max-w-2xl mx-auto lg:mx-0"> {/* Adjusted max-width for better centering on smaller screens */}
                   <div className="p-6 bg-blue-50 rounded-2xl">
                     <Award className="text-mspjBlue mb-3" />
                     <h4 className="font-bold text-mspjDark mb-1">최고의 전문성</h4>
@@ -63,28 +64,7 @@ const About: React.FC = () => {
               </div>
             </motion.div>
             
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-4"
-            >
-              <div className="rounded-3xl shadow-xl overflow-hidden h-[450px] col-span-1 mt-12 relative group">
-                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2070" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Seminar Scene 1" />
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="absolute bottom-6 left-6 text-white font-bold text-sm">박정어학원 학부모 설명회 현장</div>
-              </div>
-              <div className="space-y-4 col-span-1">
-                <div className="rounded-3xl shadow-xl overflow-hidden h-[215px] relative group">
-                   <img src="https://images.unsplash.com/photo-1524178232363-1fb28f74b671?q=80&w=2070" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Seminar Scene 2" />
-                   <div className="absolute inset-0 bg-black/10"></div>
-                </div>
-                <div className="rounded-3xl shadow-xl overflow-hidden h-[215px] relative group">
-                   <img src="https://images.unsplash.com/photo-1477281765962-ef34e8bb0967?q=80&w=2070" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Classroom Scene" />
-                   <div className="absolute inset-0 bg-black/10"></div>
-                </div>
-              </div>
-            </motion.div>
+            {/* Removed the image grid section as per user request */}
           </div>
         </div>
       </section>
